@@ -1,0 +1,45 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+  <mat-form-field appearance="fill">
+    <mat-label>Prénom</mat-label>
+    <input matInput formControlName="prenom" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Nom</mat-label>
+    <input matInput formControlName="nom" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Mot de passe</mat-label>
+    <input matInput type="password" formControlName="password" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Sexe</mat-label>
+    <mat-select formControlName="sexe">
+      <mat-option value="homme">Homme</mat-option>
+      <mat-option value="femme">Femme</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Niveau</mat-label>
+    <mat-select formControlName="niveau">
+      <mat-option value="débutant">Débutant</mat-option>
+      <mat-option value="intermédiaire">Intermédiaire</mat-option>
+      <mat-option value="avancé">Avancé</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">
+    Créer mon compte
+  </button>
+
+  <p class="message">{{ message }}</p>
+  <p>Déjà inscrit ? <a routerLink="/login">Se connecter</a></p>
+</form>

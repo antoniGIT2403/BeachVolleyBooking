@@ -1,0 +1,14 @@
+<mat-toolbar color="primary" >
+    <span>Beach Lovers</span>
+    <span class="spacer"></span>
+      <button mat-icon-button [routerLink]="['/profile']" >
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <button mat-button routerLink="/home">Accueil</button>
+    <button mat-button   routerLink="/admin" *ngIf="isAdmin" >Espace admin</button>
+  
+    <button mat-button (click)="logout()">Déconnexion</button>
+  </mat-toolbar>
+  
+  <router-outlet></router-outlet>
+  

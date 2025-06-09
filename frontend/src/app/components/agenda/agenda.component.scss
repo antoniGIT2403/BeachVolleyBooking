@@ -1,0 +1,61 @@
+::ng-deep .fc-event {
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 8px !important;
+    font-size: 1rem !important;
+    font-weight: 500;
+    line-height: 1.4 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+
+  
+  ::ng-deep .level-debutant {
+    background-color: #4caf50 !important; // vert vif
+    color: white !important;
+  }
+  
+  ::ng-deep .level-intermediaire {
+    background-color: #ff9800 !important; // orange soutenu
+    color: white !important;
+  }
+  
+  ::ng-deep .level-avance {
+    background-color: black !important; // noir intense
+    color: white !important;
+  }
+  
+
+  
+  /* ⛔ Plein */
+  ::ng-deep .event-full {
+    opacity: 0.6;
+    filter: grayscale(0.3);
+  }
+  
+
+
+  ::ng-deep .fc {
+    font-size: 1.1rem; // augmente taille globale
+  }
+  
+  ::ng-deep .fc .fc-timegrid-slot {
+    height: 2.5rem !important; // agrandit chaque créneau
+  }
+  
+
+  
+
+  ::ng-deep .fc-event-title {
+    white-space: pre-line !important; // autorise les \n dans le titre
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  
+
+  

@@ -1,0 +1,18 @@
+<div class="credit-container mat-elevation-z3">
+  <h2>💳 Acheter des crédits</h2>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Quantité</mat-label>
+    <mat-select [(ngModel)]="selected" name="creditSelect" required>
+      <mat-option *ngFor="let amount of creditOptions" [value]="amount">
+        {{ amount }} crédits
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="addCredits()" [disabled]="!selected">
+    ✅ Valider (mock)
+  </button>
+
+  <p class="message" *ngIf="message">{{ message }}</p>
+</div>

@@ -1,0 +1,32 @@
+<div class="admin-container">
+  
+ <h2>🕓 Utilisateurs en attente</h2>
+<mat-card *ngFor="let user of pendingUsers" class="user-card pending">
+  <div class="user-info">
+    <div>{{ user.prenom }} {{ user.nom }} </div>
+    <div class="user-actions">
+      <button mat-button color="primary" (click)="approve(user._id)">✅ Accepter</button>
+      <button mat-button color="warn" (click)="reject(user._id)">❌ Rejeter</button>
+    </div>
+  </div>
+</mat-card>
+ <p *ngIf="!pendingUsers.length">Aucun utilisateur en attente.</p>
+
+<h2>👥 Membres du Club</h2>
+<div *ngIf="hasPendingRequests" class="pending-alert">
+  ⚠️ {{ pendingUsers.length }} demande(s) d’adhésion en attente !
+</div>
+<mat-card *ngFor="let user of users" class="user-card">
+  <div class="user-info">
+    <div class="user-name">{{ user.prenom }} {{ user.nom }}</div>
+    <div class="user-credits">💳 {{ user.credits }} crédits</div>
+    <div class="user-details">⚙️ {{ user.niveau }} - {{ user.sexe }}</div>
+     <div *ngIf="user.status === 'pending'" class="actions">
+      <button mat-raised-button color="primary" (click)="approve(user._id)">✅ Approuver</button>
+      <button mat-button color="warn" (click)="reject(user._id)">❌ Rejeter</button>
+    </div>
+  </div>
+</mat-card>
+
+  <p *ngIf="!users.length">Aucun utilisateur trouvé.</p>
+</div>

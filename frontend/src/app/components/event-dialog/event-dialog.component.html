@@ -1,0 +1,44 @@
+<div mat-dialog-title class="dialog-header">
+  <h2>{{ event.title }}</h2>
+  <button *ngIf="isAdmin" mat-icon-button class="edit-button" (click)="openEditDialog()" aria-label="Modifier l’événement">
+    <mat-icon>edit</mat-icon>
+  </button>
+</div>
+
+<div class="event-details">
+  <p><strong>📅 Date :</strong><br>
+    {{ event.date ? (event.date | date: 'EEEE d MMMM yyyy à HH:mm') : '' }} 
+  </p>
+
+  <p><strong>📍 Lieu :</strong> {{ event.location }}</p>
+  <p><strong>🎯 Niveau :</strong> {{ event.level }}</p>
+  <p><strong>👥 Participants :</strong> {{ event.registeredUsers?.length || 0 }} / {{ event.maxParticipants }}</p>
+
+  <mat-divider class="section-divider"></mat-divider>
+
+  <h3>Participants inscrits :</h3>
+  <mat-list dense>
+    <mat-list-item *ngFor="let participant of event.registeredUsers">
+      {{ participant.prenom }} {{ participant.nom }}
+    </mat-list-item>
+    <mat-list-item *ngIf="!event.registeredUsers?.length">Aucun pour le moment.</mat-list-item>
+  </mat-list>
+
+  <mat-divider class="section-divider"></mat-divider>
+
+  <div class="button-group">
+    <button mat-raised-button color="primary" (click)="joinEvent()" *ngIf="canJoin()">
+      ✅ Je m’inscris
+    </button>
+
+    <button mat-raised-button color="warn" *ngIf="isRegistered()" (click)="leaveEvent()">
+      ❌ Me désinscrire
+    </button>
+
+    <button mat-stroked-button color="warn" *ngIf="isAdmin" (click)="deleteEvent()">
+      🗑 Supprimer l’événement
+    </button>
+  </div>
+
+  <p class="message">{{ message }}</p>
+</div>

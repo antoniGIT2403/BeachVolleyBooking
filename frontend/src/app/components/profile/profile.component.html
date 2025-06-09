@@ -1,0 +1,34 @@
+<div class="profile-container" *ngIf="user">
+  <mat-card class="profile-card">
+    <div class="avatar">
+      <mat-icon>account_circle</mat-icon>
+    </div>
+
+    <h2>Mon Profil</h2>
+
+    <div class="info-row">
+      <span>👤 Prénom :</span>
+      <strong>{{ user.prenom }}</strong>
+    </div>
+    <div class="info-row">
+      <span>👤 Nom :</span>
+      <strong>{{ user.nom }}</strong>
+    </div>
+    <div class="info-row">
+      <span>📧 Email :</span>
+      <strong>{{ user.email }}</strong>
+    </div>
+    <div class="info-row">
+      <span>🧍 Sexe :</span>
+      <strong>{{ user.sexe }}</strong>
+    </div>
+    <div class="info-row">
+      <span>🎯 Niveau :</span>
+      <strong>{{ user.niveau }}</strong>
+    </div>
+    <div class="info-row">
+      <span>💳 Crédits :</span>
+      <strong>{{ user.credits }}</strong>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,25 @@
+<h1 class="welcome-title">Bienvenue {{ user?.prenom }} 👋</h1>
+
+<mat-card class="credit-card">
+  <div class="credit-header">
+    <span>
+      💰 Crédits disponibles : <strong>{{ user?.credits }}</strong>
+    </span>
+    <button mat-raised-button color="warn" class="cta-button " (click)="openCreditDialog()">
+      💳 Acheter des crédits
+    </button>
+  </div>
+</mat-card>
+
+<!-- Actions Admin -->
+<div *ngIf="isAdmin" class="admin-actions">
+  <button mat-raised-button color="primary" class="admin-btn" (click)="openEventCreationDialog()">
+    ➕ Créer un événement
+  </button>
+
+  <button mat-raised-button color="accent" class="admin-btn" (click)="cloneLastWeek()">
+    📆 Cloner la semaine précédente
+  </button>
+</div>
+
+<app-agenda (dateSelected)="onDateSelected($event)" [events]="events"></app-agenda>
