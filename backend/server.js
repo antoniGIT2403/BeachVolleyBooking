@@ -8,6 +8,8 @@ const { authMiddleware, isAdmin } = require("./middlewares/auth");
 require('dotenv').config();
 const crypto = require('crypto');
 const { sendVerificationEmail } = require('./emailService');
+const uriDb = "mongodb+srv://antonimalki1990:<antonimalki1990>@cluster0.pqeva19.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
 
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "super-secret-djolet-key"; //TODO à sécuriser plus tard
@@ -47,7 +49,8 @@ const loginLimiter = rateLimit({
 
 
 // Connexion à MongoDB
-mongoose.connect("mongodb://localhost:27017/beachvolleyarena", {
+//
+mongoose.connect(uriDb, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
