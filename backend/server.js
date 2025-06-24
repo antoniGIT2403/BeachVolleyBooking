@@ -8,7 +8,7 @@ const { authMiddleware, isAdmin } = require("./middlewares/auth");
 require('dotenv').config();
 const crypto = require('crypto');
 const { sendVerificationEmail } = require('./emailService');
-const uriDb = "mongodb+srv://antonimalki1990:antonimalki1990@cluster0.pqeva19.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uriDb = "mongodb+srv://antonimalki1990:t3R3qiSZ8gDIDunS@cluster0.pqeva19.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 
 const jwt = require("jsonwebtoken");
