@@ -3,9 +3,11 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn = () => {
   const router = inject(Router);
-  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  const userService = inject(UserService);
+
+  const user = userService.getCurrentUser();
 
   if (user && user.status === 'active') {
     return true;
@@ -14,9 +16,9 @@ export const authGuard: CanActivateFn = (route, state) => {
   } else {
     router.navigate(['/login']);
   }
+
   return false;
 };
-
 
 export const adminGuard: CanActivateFn = () => {
   const router = inject(Router);
@@ -26,7 +28,7 @@ export const adminGuard: CanActivateFn = () => {
   if (user?.role === 'admin') {
     return true;
   } else {
-    router.navigate(['/home']); // ou vers une page 403 par exemple
+    router.navigate(['/home']);
     return false;
   }
 };

@@ -17,11 +17,35 @@ export interface User {
 export class UserService {
   private userSubject = new BehaviorSubject<User | null>(this.loadFromLocalStorage());
   user$ = this.userSubject.asObservable();
+  
+reloadUserFromStorage() {
+  const user = this.loadFromLocalStorage();
+  this.userSubject.next(user);
+}
 
-  private loadFromLocalStorage(): User | null {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+private loadFromLocalStorage(): User | null {
+  const userStr = localStorage.getItem('user');
+  if (userStr) return JSON.parse(userStr);
+
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return {
+        _id: payload.id,
+        email: payload.email,
+        role: payload.role,
+        status: 'active', // On suppose qu’un token valide implique un utilisateur actif
+      };
+    } catch (e) {
+      console.error('Erreur de décodage du token :', e);
+      return null;
+    }
   }
+
+  return null;
+}
+
 
   getCurrentUser(): User | null {
     return this.userSubject.value;

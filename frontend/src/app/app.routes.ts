@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { adminGuard, authGuard } from './services/auth.guard';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,7 @@ export const routes: Routes = [
         (m) => m.LoginComponent
       ),
   },
+  { path: 'verify-email', component: VerifyEmailComponent },
   {
     path: 'credit',
     loadComponent: () =>

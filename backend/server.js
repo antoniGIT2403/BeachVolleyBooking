@@ -2,14 +2,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require('dotenv').config(); 
+dotenv.config({
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
+});
 const bcrypt = require('bcryptjs');
 const rateLimit = require("express-rate-limit");
 const { authMiddleware, isAdmin } = require("./middlewares/auth");
 require('dotenv').config();
 const crypto = require('crypto');
 const { sendVerificationEmail } = require('./emailService');
-const uriDb = "mongodb+srv://antonimalki1990:antonimalki1990@cluster0.pqeva19.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
+const uriDb = process.env.MONGODB_URI
 
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "super-secret-djolet-key"; //TODO à sécuriser plus tard
@@ -134,6 +137,50 @@ app.post("/api/register", async (req, res) => {
 
   res.send({ message: "Inscription réussie, vérifie ton email 📧" });
 });
+
+const jwt = require("jsonwebtoken");
+
+function generateToken(user) {
+  return jwt.sign(
+    { id: user._id, email: user.email, role: user.role },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" }
+  );
+}
+
+app.post("/api/verify-email", async (req, res) => {
+  const { token } = req.body;
+
+  const user = await User.findOne({ emailVerificationToken: token });
+
+  if (!user) {
+    return res.status(400).send({ error: "Token invalide ou expiré" });
+  }
+
+  user.isEmailVerified = true;
+  user.emailVerificationToken = undefined;
+  user.status = "active";
+  await user.save();
+
+  const authToken = generateToken(user);
+
+  res.send({
+    message: "Email vérifié avec succès",
+    token: authToken,
+    user: {
+    _id: user._id,
+      email: user.email,
+      credits: user.credits,
+      role: user.role,
+      prenom: user.prenom,
+      nom: user.nom,
+      sexe: user.sexe,
+      niveau: user.niveau,
+      status: user.status,
+    },
+  });
+});
+
 
 app.post("/api/login", loginLimiter, async (req, res) => {
   const { email, password } = req.body;

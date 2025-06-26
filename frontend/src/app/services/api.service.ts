@@ -53,6 +53,12 @@ updateEvent(id: string, data: any) {
   rejectUser(id: string) {
     return this.http.patch(`${this.baseUrl}/users/${id}/reject`, {});
   }
+  // src/app/services/api.service.ts
+
+verifyEmail(token: string) {
+  return this.http.post(`${this.baseUrl}/verify-email`, { token });
+}
+
 
   // Events
   createEvent(event: any): Observable<any> {
