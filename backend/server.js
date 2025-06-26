@@ -19,7 +19,7 @@ const JWT_SECRET = "super-secret-djolet-key"; //TODO à sécuriser plus tard
 
 const app = express();
 
-app.use(express.json());
+
 
 const allowedOrigins = ["https://beachvolleyplanner.netlify.app", "http://localhost:4200", 'http://localhost:3000']; // Remplace par ton vrai domaine déployé
 
@@ -35,6 +35,10 @@ app.use(
     credentials: true, // si tu utilises les cookies ou sessions
   })
 );
+
+app.options("*", cors()); // <== pour les requêtes OPTIONS
+
+app.use(express.json());
 
 // 🔒 Limiter à 100 requêtes par IP par 15 minutes
 const rateLimiter = rateLimit({
