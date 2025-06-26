@@ -2,10 +2,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-require('dotenv').config(); 
-dotenv.config({
+require('dotenv').config({
   path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
 });
+
 const bcrypt = require('bcryptjs');
 const rateLimit = require("express-rate-limit");
 const { authMiddleware, isAdmin } = require("./middlewares/auth");
@@ -95,7 +95,7 @@ const User = mongoose.model(
     },
     prenom: String,
     nom: String,
-    emailVerified: { type: Boolean, default: false },
+    emailVerified: { type: Boolean, default: true }, // TODO: à changer en false
     emailVerificationToken: String,
     emailVerificationExpires: Date,
   })
@@ -122,8 +122,8 @@ app.post("/api/register", async (req, res) => {
     sexe: sexe || "homme",
     niveau: niveau || "débutant",
     status: "pending",
-    emailVerificationToken: true, //TODO: à changer en verificationToken
-    isEmailVerified: false,
+    emailVerificationToken: verificationToken, //TODO: à changer en verificationToken
+    isEmailVerified: true, // TODO: à changer en false
   });
 
   await user.save();
@@ -138,7 +138,6 @@ app.post("/api/register", async (req, res) => {
   // res.send({ message: "Inscription réussie, vérifie ton email 📧" });
 });
 
-const jwt = require("jsonwebtoken");
 
 function generateToken(user) {
   return jwt.sign(
@@ -187,7 +186,7 @@ app.post("/api/login", loginLimiter, async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) return res.status(400).send({ error: "Utilisateur non trouvé" });
-  if (!user.isEmailVerified)
+  if (!user.emailVerified)
   return res.status(401).send({ error: "Email non vérifié" });
 
   const isMatch = await bcrypt.compare(password, user.password);
