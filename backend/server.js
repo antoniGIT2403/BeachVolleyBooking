@@ -122,20 +122,20 @@ app.post("/api/register", async (req, res) => {
     sexe: sexe || "homme",
     niveau: niveau || "débutant",
     status: "pending",
-    emailVerificationToken: verificationToken,
+    emailVerificationToken: true, //TODO: à changer en verificationToken
     isEmailVerified: false,
   });
 
   await user.save();
 
-  try {
-    await sendVerificationEmail(email, verificationToken);
-  } catch (err) {
-    console.error("Erreur envoi mail:", err);
-    return res.status(500).send({ error: "Erreur lors de l'envoi de l'email" });
-  }
+  // try {
+  //   await sendVerificationEmail(email, verificationToken);
+  // } catch (err) {
+  //   console.error("Erreur envoi mail:", err);
+  //   return res.status(500).send({ error: "Erreur lors de l'envoi de l'email" });
+  // }
 
-  res.send({ message: "Inscription réussie, vérifie ton email 📧" });
+  // res.send({ message: "Inscription réussie, vérifie ton email 📧" });
 });
 
 const jwt = require("jsonwebtoken");
