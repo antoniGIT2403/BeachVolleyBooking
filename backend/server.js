@@ -21,7 +21,7 @@ const app = express();
 
 app.use(express.json());
 
-const allowedOrigins = ["https://ton-frontend.com", "http://localhost:4200"]; // Remplace par ton vrai domaine déployé
+const allowedOrigins = ["https://beachvolleyplanner.netlify.app", "http://localhost:4200", 'http://localhost:3000']; // Remplace par ton vrai domaine déployé
 
 app.use(
   cors({
