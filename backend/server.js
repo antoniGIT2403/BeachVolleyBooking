@@ -36,7 +36,7 @@ app.use(
   })
 );
 
-app.options("*", cors()); // <== pour les requêtes OPTIONS
+
 
 app.use(express.json());
 
